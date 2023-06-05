@@ -17,7 +17,7 @@ In 2018, Spotify released an open dataset of sequential listening data. Accordin
 Spotify Sequential Skip dataset, consisting of roughly 130 million listening sessions with associated user behaviors. Each session consists of multiple music tracks (songs, podcasts, etc.). User interaction features are provided for the first half of the session, but only track ids are provided for the second half.
 
 <p align="center">
-  <img src="https://drive.google.com/file/d/1nw_HEb13ZRiKjkRzjPUqiGK_JIdrHN7D/view?usp=sharing">
+  <img src="https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Poster-Using%20NLP%20Techniques%20to%20Predict%20Song%20Skips%20on%20Spotify%20based%20on%20Acoustic%20Data.pdf">
 </p>
 
 
