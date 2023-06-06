@@ -17,7 +17,7 @@ In 2018, Spotify released an open dataset of sequential listening data. Accordin
 Spotify Sequential Skip dataset, consisting of roughly 130 million listening sessions with associated user behaviors. Each session consists of multiple music tracks (songs, podcasts, etc.). User interaction features are provided for the first half of the session, but only track ids are provided for the second half.
 
 <p align="center">
-  <img src="https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Poster-Using%20NLP%20Techniques%20to%20Predict%20Song%20Skips%20on%20Spotify%20based%20on%20Acoustic%20Data.pdf">
+  <img src="https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Product/data_spotify.png">
 </p>
 
 
@@ -32,6 +32,32 @@ df["skipped"] = df["skip_1"]*df["skip_2"]*df["skip_3"]
 df.drop(["skip_1", "skip_2", "skip_3", "not_skipped"], axis=1, inplace=True)
 ```
 for whether the song was skipped / not skipped since it better reprents whether a user like the track they are on.
+
+## 4. Exploratory Data Analysis (EDA)
+[Jupyter notebook of EDA](https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Internship_may_29.ipynb)
+
+"_Some Insights from EDA_"
+
+## 5. Skip Prediction system
+
+"_Some Insights_"
+
+![](https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Product/spotify1.png)
+![](https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Product/spotify2.png)
+
+## 6. Training and Testing Models
+
+### a. Logistic Regression
+
+### b. Naive Bayes Classifier
+
+### c. Decision Tree Classifier
+
+### d. KNN Classifier
+
+## 7. What Features Contribute to the Prediction?
+
+## 8. Conclusion
 
 
 
