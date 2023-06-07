@@ -49,11 +49,11 @@ In EDA, we have examined a number of columns to learn more about the provided da
 
 ## EDA of Input variables with binary features
 
-![gif1](https://drive.google.com/file/d/1k1Aa0HsybyBoli1ufJs2YCVpNFyCuzqZ/view?usp=drive_link)
+![gif1](https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Product/EDA_bin_features.gif)
 
 ## EDA of Input variables with multiple features
 
-![gif2](https://github.com/tuhin3101/Spotify-project/blob/main/EDA_mul_features.gif) 
+![gif2](https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Product/EDA_mul_features.gif) 
 
 
 ## Observations from EDA
@@ -110,9 +110,9 @@ df['mode'] = encoder.fit_transform(df['mode'])
 
 From sklearn.feature_selection we imported mutual_info_regression in order to get top 20 features
 
-![Example Image](mi_scores.png) 
+![Example Image](https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Product/mi%20scores.png) 
 
-![Example Image](https://github.com/tuhin3101/Spotify-project/blob/main/top_20_features.png) 
+![Example Image](https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Product/top_20_features.png) 
 
 ## Mapping the column names for simplification
 
