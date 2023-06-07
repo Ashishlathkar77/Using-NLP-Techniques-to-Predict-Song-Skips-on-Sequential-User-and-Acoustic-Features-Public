@@ -4,60 +4,197 @@
 
 # Prediction of Song Skips on Spotify based on Sequential User and Acoustic Data
 
-Music consumption habits have changed dramatically with the rise of streaming services like Spotify, Apple Music and Tidal. The skip button plays a large role in the user;s experience, as they are free to abondon songs as they choose. Music providers are also incentivized to recommend songs that their users like in order to increase user experience and time spent on the platform.
+### Abstract
+The main purposes of this project are to find out the important of input variables i.e acoustic features that affect mostly in the songs
+skip prediction and make a predictive application by Machine-Learning techiques for the client to facilitate the comprehension of user behaviour.
 
-Machine learning in the context of music often users recommender system. There hasn't been much research on how a user's interaction with music over time can help recommend music to the user. So this system will predict the likehood of whether the customer will skip the song or not by providing song characteristics.
-
-## 0. Introduction
-Spotify is one of the most popular online music streaming services, with hundreds of million users and more than 40 million music tracks. Recommending the right music track to the right user at the right time is their key to success.
-
-In 2018, Spotify released an open dataset of sequential listening data. According to them, "_a central challenge for Spotify is to recommend the right music to each user. While there is a large related body of work on recommender systems, there is very little work, or data, describing how users sequentially interact with the streamed content they are presented with. In particular within music, the question of if, and when, a user skips a track is an important implicit feedback signal._"
-
-## 1. Dataset
-Spotify Sequential Skip dataset, consisting of roughly 130 million listening sessions with associated user behaviors. Each session consists of multiple music tracks (songs, podcasts, etc.). User interaction features are provided for the first half of the session, but only track ids are provided for the second half.
-
-<p align="center">
-  <img src="https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Product/data_spotify.png">
-</p>
+### Background of Understanding the Problem
+The mucical app spotify has provided two datasets. One dataset contains data related to user behaviour and other one contains data related acoustic features of all individual 
+musical tracks. Now we have to find out the the most relavant user-behaviour and acoustic features which contribute to the skip of a particular track so that the client i.e spotify be able to 
+see the impact of the input features on skipping of a song and thus they can improve their service in various ways such as by accurately predicting song skips, Spotify can better understand user
+preferences and tailor personalized recommendations, by identifying songs that are more likely to be skipped, Spotify can optimize playlist sequencing and ensure a more enjoyable listening experience.
+Thus finally they are able to meet their business goals.
 
 
-## 2. Pre-Processing
-We merged user behavior and acoustic features for each track ids. We also preprocessed categorical features into one-hot representations or label encoding and normalized them (z-score and min/max). This pre-processing created an input track embedding for our model.
+### Data Details
 
-## 3. Features Details
-We chose to create target variable "_skipped_" using formula:
+*	log-mini.csv (df1) has 167880 rows and 21 columns
+*	tf-mini.csv (df2) has 50704 rows and 30 columns
+*	Data has no duplicates.
+*	Data has missing values.
+
+### Data prepeocessing
+
+• First, we'll rename 'track_id_clean' feature of df1 as 'track_id' then merge the two datasets (i.e df1 & df2) on common feature column 'track-id'
+
+
+```python
+# Renaming the column track id
+df1 = df1.rename(columns={'track_id_clean':'track_id'})
+
+# merging the two dataset
+df = pd.merge(df1, df2, on='track_id')
+```
+
+• Then we create another column named 'skipped' by combining 'skip1','skip2','skip3' through multiplication
 
 ```python
 df["skipped"] = df["skip_1"]*df["skip_2"]*df["skip_3"]
 df.drop(["skip_1", "skip_2", "skip_3", "not_skipped"], axis=1, inplace=True)
 ```
-for whether the song was skipped / not skipped since it better reprents whether a user like the track they are on.
 
-## 4. Exploratory Data Analysis (EDA)
-[Jupyter notebook of EDA](https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Internship_may_29.ipynb)
+### Exploratory Data Analysis (EDA)
 
-"_Some Insights from EDA_"
+In EDA, we have examined a number of columns to learn more about the provided dataset.
 
-## 5. Skip Prediction system
+## EDA of Input variables with binary features
 
-"_Some Insights_"
+![gif1](https://drive.google.com/file/d/1k1Aa0HsybyBoli1ufJs2YCVpNFyCuzqZ/view?usp=drive_link)
 
-![](https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Product/spotify1.png)
-![](https://github.com/Ashishlathkar77/Using-NLP-Techniques-to-Predict-Song-Skips-on-Sequential-User-and-Acoustic-Features-Public/blob/main/Product/spotify2.png)
+## EDA of Input variables with multiple features
 
-## 6. Training and Testing Models
+![gif2](https://github.com/tuhin3101/Spotify-project/blob/main/EDA_mul_features.gif) 
 
-### a. Logistic Regression
 
-### b. Naive Bayes Classifier
+## Observations from EDA
+1. Maximum songs are present in the first three sessions and minimum in last three sessions. And the songs belonging to 1st session are skipped least as compared to others.
+2. Maximum skips happened for those songs which are present in the sessions starting from session 4 upto session 10 then no of skips decreased along with the no of songs.
+3. Maximum count of sessions length is 20 which means users generally listen to music for 20 mins
+4. The users do not seek forward or backward through the song
+5. The users do not listen to music much at late nights or early in the morning. The peak listening hours are 1pm to 5pm in the afternoon
+6. Maximum songs were listened in 15-07-2018
+7. The maximum number of songs fall under the context user_collection. But songs present in editorial_playlist and catalog are less skipped as compared to user_collection.
+8. The 'trackdone' category has maximum no of songs that are not skipped after playing and 'fwdbtn' category has most songs skipped. It indicates that the users skipped the song when they try to play the songs by forward option but they didn't skip when the songs are played in general order.
+9. Maximum songs are released in 2018
+10. Maximum songs fall under the category key-1 and minimum under the category key-3
+11. The most common time signature in music is 4/4
 
-### c. Decision Tree Classifier
 
-### d. KNN Classifier
 
-## 7. What Features Contribute to the Prediction?
+## Outlier detection and outlier capping
 
-## 8. Conclusion
+ I used sns.boxplot() to identify the outliers from the following columns 
+```python
+cols = ['acousticness','beat_strength', 'bounciness', 'danceability', 'dyn_range_mean',
+       'energy', 'flatness', 'instrumentalness', 'liveness', 'loudness','mechanism',
+       'organism', 'speechiness', 'tempo', 'valence', 'acoustic_vector_0', 'acoustic_vector_1',
+       'acoustic_vector_2', 'acoustic_vector_3', 'acoustic_vector_4',
+       'acoustic_vector_5', 'acoustic_vector_6', 'acoustic_vector_7']
+```
+ Then applied capping i.e seting the upper and lower limit with threshold values.
+
+```python
+
+for i in cols:
+    q1 = np.percentile(df[i],25)
+    q3 = np.percentile(df[i],75)
+    iqr = q3 - q1
+    lw_lm = q1 - 1.5*iqr
+    up_lm = q3 + 1.5*iqr
+    df[i] = np.where(df[i]>up_lm, up_lm, np.where(df[i]<lw_lm, lw_lm, df[i]))
+
+```
+## Encoding
+
+ We applied one hot encoding on the following columns 
+```python
+df = pd.get_dummies(df,columns=['context_type','hist_user_behavior_reason_start','hist_user_behavior_reason_end'])
+
+```
+ Then we applied label encoding on 'mode'
+```python
+encoder = LabelEncoder()
+df['mode'] = encoder.fit_transform(df['mode'])
+```
+## Feature selection
+
+From sklearn.feature_selection we imported mutual_info_regression in order to get top 20 features
+
+![Example Image](mi_scores.png) 
+
+![Example Image](https://github.com/tuhin3101/Spotify-project/blob/main/top_20_features.png) 
+
+## Mapping the column names for simplification
+
+```python
+col_map = {
+    
+ 'hist_user_behavior_reason_end_trackdone': 'end_trackdone',
+ 'hist_user_behavior_reason_start_trackdone': 'start_trackdone',
+ 'hist_user_behavior_reason_start_fwdbtn': 'start_fwdbtn',
+ 'hist_user_behavior_reason_end_fwdbtn': 'end_fwdbtn' ,
+ 'hist_user_behavior_reason_end_backbtn': 'end_backbtn',
+ 'no_pause_before_play': 'no_pause_before_play',
+ 'long_pause_before_play': 'long_pause_before_play',
+ 'valence': 'valence',
+ 'acoustic_vector_6': 'vector_6',
+ 'acoustic_vector_5': 'vector_5',
+ 'duration':'duration',
+ 'dyn_range_mean': 'dyn_range_mean',
+ 'acoustic_vector_1': 'vector_1',
+ 'organism': 'organism',
+ 'energy': 'energy',
+ 'acoustic_vector_2': 'vector_2',
+ 'us_popularity_estimate': 'us_popularity',
+ 'bounciness': 'bounciness',
+ 'short_pause_before_play': 'short_pause_before_play',
+ 'beat_strength': 'beat_strength'
+    
+}
+```
+### Applying minmax scaling scaling on numerical variables with large unique values
+
+```python
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+
+X[['valence', 'vector_6', 'vector_5','duration', 'dyn_range_mean', 'vector_1',
+   'organism', 'energy', 'vector_2', 'us_popularity','bounciness',
+   'beat_strength']] = scaler.fit_transform(X[['valence', 'vector_6', 'vector_5', 
+                    'duration', 'dyn_range_mean', 'vector_1','organism', 'energy', 'vector_2', 'us_popularity',
+                    'bounciness', 'beat_strength']])
+```
+ - Here X is input features
+
+## Saving the scaler by joblib.dump
+
+joblib.dump(scaler,'minmaxScaler.joblib')
+
+## Modeling
+
+### Train test split
+
+```python
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=5)
+```
+### Appying DecisionTree classifier
+```python
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import  accuracy_score
+dtc = DecisionTreeClassifier(max_depth = 5,
+			     criterion = "gini",
+			     random_state = 100,
+                             min_samples_split = 2,
+			     min_samples_leaf=2)
+dtc.fit(X_train, y_train)
+y_pred = dtc.predict(X_test)
+accuracy_score(y_test, y_pred)
+```
+
+#### Training accuracy is - 0.874262866333095
+
+#### Testing accuracy is - 0.8765487252799619
+
+
+## Saving the model by joblib.dump
+
+joblib.dump(dtc, 'decisionTree.joblib')
+
+## Web Framework used for the prediction app - Streamlit
+## Cloud hosting sevice used for deployment - Render
+
+## url for the app - https://spotify-skip.onrender.com/
 
 
 
