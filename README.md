@@ -196,6 +196,19 @@ joblib.dump(dtc, 'decisionTree.joblib')
 
 ## url for the app - https://spotify-skip.onrender.com/
 
+## The team
+
+Here is a breakdown of the roles and responsibilities of each team member:
+
+
+| Team member name         | Role and Tasks|
+| :-------------: | :-------------: |
+| Tuhin | - Data Pre-Processing <br> - Feature Engineering <br> - Modeling Building <br> - Model Deployment (Render) <br> - Report Writing <br>|
+| Jannah | - Data Cleaning <br> - Pre-Processing <br> - Feature Engineering <br> - Model Building <br> - Model Deployment (Streamlit) <br>|
+| Ashish (Team Lead) | - Data Pre-Processing <br> - Feature Engineering <br> - Model Building <br> - Model Deployment (Render) <br> - Report Writing <br>|
+| Aman | - Data Analysis <br> - Pre-Processing <br> - Model Building <br> - Model Deployment (Flask) <br>|
+| Himanshu | - Exploratory Data Analysis <br> - Model Building <br> - Model Deployment (Streamlit) <br>|
+| Param | - Exploratory Data Analysis <br> - Model Building <br> - Model Deployment (Flask) <br>|
 
 
 
